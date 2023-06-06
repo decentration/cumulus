@@ -62,6 +62,7 @@ where
 	B::State: sc_client_api::backend::StateBackend<sp_runtime::traits::HashFor<Block>>,
 {
 	use frame_rpc_system::{System, SystemApiServer};
+	
 	use pallet_transaction_payment_rpc::{TransactionPayment, TransactionPaymentApiServer};
 	use substrate_state_trie_migration_rpc::{StateMigration, StateMigrationApiServer};
 
@@ -103,6 +104,46 @@ where
 	module.merge(System::new(client.clone(), pool, deny_unsafe).into_rpc())?;
 	module.merge(TransactionPayment::new(client.clone()).into_rpc())?;
 	module.merge(Dev::new(client, deny_unsafe).into_rpc())?;
+
+
+	Ok(module)
+}
+
+#[cfg(feature = "statemine")]
+/// Instantiate Statemine RPC extensions.
+pub fn create_full_statemine<C, P, B>(
+	deps: FullDeps<C, P>,
+	backend: Arc<B>,
+) -> Result<RpcExtension, Box<dyn std::error::Error + Send + Sync>>
+where
+	C: ProvideRuntimeApi<Block>
+		+ HeaderBackend<Block>
+		+ AuxStore
+		+ HeaderMetadata<Block, Error = BlockChainError>
+		+ Send
+		+ Sync
+		+ 'static,
+	C::Api: frame_rpc_system::AccountNonceApi<Block, AccountId, Nonce>,
+	C::Api: pallet_transaction_payment_rpc::TransactionPaymentRuntimeApi<Block, Balance>,
+	C::Api: BlockBuilder<Block>,
+	C::Api: pallet_supersig_rpc::SuperSigRuntimeApi<Block, AccountId>,
+	P: TransactionPool + Sync + Send + 'static,
+	B: sc_client_api::Backend<Block> + Send + Sync + 'static,
+	B::State: sc_client_api::backend::StateBackend<sp_runtime::traits::HashFor<Block>>,
+{
+	use pallet_supersig_rpc::{SuperSig, SuperSigApiServer};
+	use frame_rpc_system::{System, SystemApiServer};
+	use pallet_transaction_payment_rpc::{TransactionPayment, TransactionPaymentApiServer};
+	use substrate_state_trie_migration_rpc::{StateMigration, StateMigrationApiServer};
+
+	let mut module = RpcExtension::new(());
+	let FullDeps { client, pool, deny_unsafe } = deps;
+
+	module.merge(System::new(client.clone(), pool, deny_unsafe).into_rpc())?;
+	module.merge(TransactionPayment::new(client.clone()).into_rpc())?;
+	module.merge(StateMigration::new(client.clone(), backend, deny_unsafe).into_rpc())?;
+    module.merge(SuperSig::new(client.clone()).into_rpc())?;
+
 
 	Ok(module)
 }

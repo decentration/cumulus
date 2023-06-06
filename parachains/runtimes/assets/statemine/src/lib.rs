@@ -65,6 +65,9 @@ use parachains_common::{
 };
 use xcm_config::{KsmLocation, XcmConfig};
 
+use pallet_supersig::{CallId, Role, SupersigId};
+use pallet_supersig::rpc::ProposalState;
+
 #[cfg(any(feature = "std", test))]
 pub use sp_runtime::BuildStorage;
 
@@ -73,6 +76,7 @@ use pallet_xcm::{EnsureXcm, IsMajorityOfBody, IsVoiceOfBody};
 use polkadot_runtime_common::{BlockHashCount, SlowAdjustingFeeUpdate};
 use xcm::latest::BodyId;
 use xcm_executor::XcmExecutor;
+use sp_runtime::DispatchError;
 
 use weights::{BlockExecutionWeight, ExtrinsicBaseWeight, RocksDbWeight};
 
@@ -334,13 +338,17 @@ impl InstanceFilter<RuntimeCall> for ProxyType {
 				c,
 				RuntimeCall::Balances { .. } |
 					RuntimeCall::Assets { .. } |
-					RuntimeCall::Uniques { .. }
+					RuntimeCall::Uniques { .. } |
+					RuntimeCall::Supersig (..) 
+
 			),
 			ProxyType::CancelProxy => matches!(
 				c,
 				RuntimeCall::Proxy(pallet_proxy::Call::reject_announcement { .. }) |
 					RuntimeCall::Utility { .. } |
-					RuntimeCall::Multisig { .. }
+					RuntimeCall::Multisig { .. } |
+					RuntimeCall::Supersig (..) 
+
 			),
 			ProxyType::Assets => {
 				matches!(
@@ -348,7 +356,9 @@ impl InstanceFilter<RuntimeCall> for ProxyType {
 					RuntimeCall::Assets { .. } |
 						RuntimeCall::Utility { .. } |
 						RuntimeCall::Multisig { .. } |
-						RuntimeCall::Uniques { .. }
+						RuntimeCall::Uniques { .. } |
+						RuntimeCall::Supersig (..) 
+
 				)
 			},
 			ProxyType::AssetOwner => matches!(
@@ -580,6 +590,31 @@ impl pallet_uniques::Config for Runtime {
 	type Locker = ();
 }
 
+
+parameter_types! {
+	pub const SupersigPalletId: PalletId = PalletId(*b"id/susig");
+	pub const SupersigPreimageByteDeposit: Balance = 1;
+	pub const MaxAccountsPerTransaction: u32 = 10;
+	pub const MaxCallDataSize: u32 = 1024;
+	pub const MaxCallsPerAccount: u32 = 3;
+
+}
+
+impl pallet_supersig::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+    type Currency = Balances;
+	type PalletId = SupersigPalletId;
+    type Call = RuntimeCall;
+	//type PreimageByteDeposit = SupersigPreimageByteDeposit;
+    type WeightInfo = pallet_supersig::weights::SubstrateWeight<Runtime>;
+	type DepositPerByte = SupersigPreimageByteDeposit;
+	type MaxAccountsPerTransaction = MaxAccountsPerTransaction;
+	type MaxCallDataSize = MaxCallDataSize;
+	type MaxCallsPerAccount = MaxCallsPerAccount;
+
+}
+
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -622,6 +657,7 @@ construct_runtime!(
 		// The main stage.
 		Assets: pallet_assets::{Pallet, Call, Storage, Event<T>} = 50,
 		Uniques: pallet_uniques::{Pallet, Call, Storage, Event<T>} = 51,
+		Supersig: pallet_supersig::{Pallet, Call, Storage, Event<T>} = 52,
 
 		#[cfg(feature = "state-trie-version-1")]
 		StateTrieMigration: pallet_state_trie_migration = 70,
@@ -814,6 +850,23 @@ impl_runtime_apis! {
 		}
 	}
 
+	impl pallet_supersig_rpc_runtime_api::SuperSigApi<Block, AccountId> for Runtime {
+        fn get_user_supersigs(user_account: AccountId) -> Vec<SupersigId> {
+            Supersig::get_user_supersigs(&user_account)
+        }
+        fn list_members(supersig_id: AccountId) -> Result<Vec<(AccountId, Role)>, DispatchError> {
+            Supersig::list_members(&supersig_id)
+        }
+        fn list_proposals(supersig_id: AccountId) -> Result<(Vec<ProposalState<AccountId>>, u32), DispatchError> {
+            Supersig::list_proposals(&supersig_id)
+        }
+        fn get_proposal_state(supersig_id: AccountId, call_id: CallId) -> Result<(ProposalState<AccountId>, u32), DispatchError> {
+            Supersig::get_proposal_state(&supersig_id, &call_id)
+        }
+    }
+
+
+
 	#[cfg(feature = "try-runtime")]
 	impl frame_try_runtime::TryRuntime<Block> for Runtime {
 		fn on_runtime_upgrade(checks: frame_try_runtime::UpgradeCheckSelect) -> (Weight, Weight) {
@@ -831,6 +884,7 @@ impl_runtime_apis! {
 			// have a backtrace here.
 			Executive::try_execute_block(block, state_root_check, signature_check, select).unwrap()
 		}
+	
 	}
 
 	#[cfg(feature = "runtime-benchmarks")]

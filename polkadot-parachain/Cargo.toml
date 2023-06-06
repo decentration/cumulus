@@ -89,6 +89,10 @@ cumulus-primitives-core = { path = "../primitives/core" }
 cumulus-primitives-parachain-inherent = { path = "../primitives/parachain-inherent" }
 cumulus-relay-chain-interface = { path = "../client/relay-chain-interface" }
 
+# Supersig
+pallet-supersig-rpc = { git = "https://github.com/decentration/pallet_supersig.git", branch = "polkadot-v0.9.37-fix-unbounded", default-features = false}
+
+
 [build-dependencies]
 substrate-build-script-utils = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.37" }
 
@@ -99,10 +103,13 @@ tempfile = "3.3.0"
 tokio = { version = "1.24.1", features = ["macros", "time", "parking_lot"] }
 wait-timeout = "0.2"
 # purge_chain_works works with rococo-local and needs to allow this
-polkadot-cli = { git = "https://github.com/paritytech/polkadot", features = ["rococo-native"] , branch = "release-v0.9.37" }
+polkadot-cli = { git = "https://github.com/paritytech/polkadot", features = ["rococo-native"], branch = "release-v0.9.37" }
 
 [features]
 default = []
+
+
+
 runtime-benchmarks = [
 	"polkadot-service/runtime-benchmarks",
 	"statemint-runtime/runtime-benchmarks",

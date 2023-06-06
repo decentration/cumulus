@@ -1,3 +1,21 @@
+# Statemind Branch
+
+## Create Specs for Pop-Art
+
+0 - build spec
+../target/release/polkadot-parachain build-spec --chain statemine-dev > ./specs/soupcan-2009-plain
+
+1 - build raw spec
+../target/release/$CHAIN_NAME build-spec --chain ../specs/$SPEC_NAME --raw > ../specs/$RAWSPEC_NAME
+
+2 - build genesis 
+../target/release/$CHAIN_NAME export-genesis-state  --chain ../specs/$RAWSPEC_NAME > $GENESIS_HEAD
+
+3 - build wasm 
+../target/release/$CHAIN_NAME export-genesis-wasm  --chain ../specs/$RAWSPEC_NAME > $GENESIS_WASM
+
+
+
 # Cumulus ☁️
 
 [![Doc](https://img.shields.io/badge/cumulus%20docs-master-brightgreen)](https://paritytech.github.io/cumulus/)

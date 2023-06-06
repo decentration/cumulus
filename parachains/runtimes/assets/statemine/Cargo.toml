@@ -1,7 +1,7 @@
 [package]
 name = "statemine-runtime"
 version = "2.0.0"
-authors = ["Parity Technologies <admin@parity.io>"]
+authors = ["Ramsey Ajram, Parity Technologies <admin@parity.io>"]
 edition = "2021"
 description = "Kusama variant of Statemint parachain runtime"
 
@@ -20,7 +20,7 @@ frame-system = { git = "https://github.com/paritytech/substrate", default-featur
 frame-system-benchmarking = { git = "https://github.com/paritytech/substrate", optional = true, default-features = false, branch = "polkadot-v0.9.37" }
 frame-system-rpc-runtime-api = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 frame-try-runtime = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true, branch = "polkadot-v0.9.37" }
-pallet-asset-tx-payment = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.37" }
+pallet-asset-tx-payment = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 pallet-assets = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 pallet-aura = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 pallet-authorship = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
@@ -44,7 +44,7 @@ sp-session = { git = "https://github.com/paritytech/substrate", default-features
 sp-std = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 sp-transaction-pool = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 sp-version = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
-pallet-state-trie-migration = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true , branch = "polkadot-v0.9.37" }
+pallet-state-trie-migration = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true, branch = "polkadot-v0.9.37" }
 
 # Polkadot
 kusama-runtime-constants = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.37" }
@@ -69,8 +69,11 @@ cumulus-primitives-utility = { path = "../../../../primitives/utility", default-
 pallet-collator-selection = { path = "../../../../pallets/collator-selection", default-features = false }
 parachain-info = { path = "../../../pallets/parachain-info", default-features = false }
 parachains-common = { path = "../../../common", default-features = false }
-pallet-xcm-benchmarks = { git = "https://github.com/paritytech/polkadot", default-features = false, optional = true , branch = "release-v0.9.37" }
+pallet-xcm-benchmarks = { git = "https://github.com/paritytech/polkadot", default-features = false, optional = true, branch = "release-v0.9.37" }
 
+# Pallet Supersig
+pallet-supersig = { git = "https://github.com/decentration/pallet_supersig", default-features = false, branch = "polkadot-v0.9.37-fix-unbounded" }
+pallet-supersig-rpc-runtime-api = { git = "https://github.com/decentration/pallet_supersig", default-features = false, branch = "polkadot-v0.9.37-fix-unbounded" }
 
 [dev-dependencies]
 asset-test-utils = { path = "../test-utils"}
@@ -80,6 +83,10 @@ substrate-wasm-builder = { git = "https://github.com/paritytech/substrate", bran
 
 [features]
 default = [ "std" ]
+
+statemine = []
+
+
 # When enabled the `state_version` is set to `1`.
 # This means that the chain will start using the new state format. The migration is lazy, so
 # it requires to write a storage value to use the new state format. To migrate all the other
@@ -108,6 +115,9 @@ runtime-benchmarks = [
 	"cumulus-pallet-xcmp-queue/runtime-benchmarks",
 	"pallet-xcm-benchmarks/runtime-benchmarks",
 	"pallet-state-trie-migration/runtime-benchmarks",
+	"pallet-supersig/runtime-benchmarks",
+
+	
 ]
 try-runtime = [
 	"cumulus-pallet-aura-ext/try-runtime",
@@ -134,6 +144,8 @@ try-runtime = [
 	"pallet-xcm/try-runtime",
 	"parachain-info/try-runtime",
 	"pallet-state-trie-migration/try-runtime",
+	"pallet-supersig/try-runtime",
+
 ]
 std = [
 	"codec/std",
@@ -187,4 +199,7 @@ std = [
 	"pallet-collator-selection/std",
 	"parachain-info/std",
 	"parachains-common/std",
+	"pallet-supersig/std",
+	"pallet-supersig-rpc-runtime-api/std",
+	
 ]
