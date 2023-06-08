@@ -109,7 +109,7 @@ where
 	Ok(module)
 }
 
-#[cfg(feature = "statemine")]
+#[cfg(feature = "statemind")]
 /// Instantiate Statemine RPC extensions.
 pub fn create_full_statemine<C, P, B>(
 	deps: FullDeps<C, P>,
