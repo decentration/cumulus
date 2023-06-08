@@ -84,7 +84,7 @@ substrate-wasm-builder = { git = "https://github.com/paritytech/substrate", bran
 [features]
 default = [ "std" ]
 
-statemine = []
+statemind = []
 
 
 # When enabled the `state_version` is set to `1`.
