@@ -3,17 +3,19 @@
 ## Create Specs for Pop-Art
 
 0 - build spec
-../target/release/polkadot-parachain build-spec --chain statemine-dev > ./specs/soupcan-2009-plain
+./target/release/polkadot-parachain build-spec --chain statemine-dev > ./specs/soupcan-2009-plain
 
 1 - build raw spec
-../target/release/$CHAIN_NAME build-spec --chain ../specs/$SPEC_NAME --raw > ../specs/$RAWSPEC_NAME
+./target/release/$CHAIN_NAME build-spec --chain ./specs/$SPEC_NAME --raw > ./specs/$RAWSPEC_NAME
 
 2 - build genesis 
-../target/release/$CHAIN_NAME export-genesis-state  --chain ../specs/$RAWSPEC_NAME > $GENESIS_HEAD
+./target/release/$CHAIN_NAME export-genesis-state  --chain ../specs/$RAWSPEC_NAME > ./specs/genesis/$GENESIS_HEAD
+./target/release/polkadot-parachain export-genesis-state  --chain ./specs/statemind-2009-raw.json > ./specs/genesis/2009-genesis.json
+
 
 3 - build wasm 
-../target/release/$CHAIN_NAME export-genesis-wasm  --chain ../specs/$RAWSPEC_NAME > $GENESIS_WASM
-
+./target/release/$CHAIN_NAME export-genesis-wasm  --chain ../specs/$RAWSPEC_NAME > ./specs/genesis/$GENESIS_WASM
+./target/release/polkadot-parachain export-genesis-wasm  --chain ./specs/statemind-2009-raw.json > ./specs/genesis/2009-wasm.json
 
 
 # Cumulus ☁️
