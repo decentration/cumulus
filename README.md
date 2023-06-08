@@ -1,7 +1,7 @@
 # Statemind Branch
 
 
-`cargo build --release --features statemine`
+`cargo build --release --features statemind`
 
 ## Create Specs for Pop-Art
 
