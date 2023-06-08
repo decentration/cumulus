@@ -1,5 +1,8 @@
 # Statemind Branch
 
+
+`cargo build --release --features statemine`
+
 ## Create Specs for Pop-Art
 
 0 - build spec
@@ -11,7 +14,6 @@
 2 - build genesis 
 ./target/release/$CHAIN_NAME export-genesis-state  --chain ../specs/$RAWSPEC_NAME > ./specs/genesis/$GENESIS_HEAD
 ./target/release/polkadot-parachain export-genesis-state  --chain ./specs/statemind-2009-raw.json > ./specs/genesis/2009-genesis.json
-
 
 3 - build wasm 
 ./target/release/$CHAIN_NAME export-genesis-wasm  --chain ../specs/$RAWSPEC_NAME > ./specs/genesis/$GENESIS_WASM
