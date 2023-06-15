@@ -3,7 +3,8 @@
   "id": "statemine_dev",
   "chainType": "Live",
   "bootNodes": [
-    "/dns/statemind-boot1.jelliedowl.com/tcp/41333/p2p/12D3KooWDT2ShRjupe4zAEYa7piVuY29banaae4BZd4Qmn7ij76V"    ],
+    "/ip4/127.0.0.1/tcp/30333/p2p/12D3KooWKtSgK2DCs6zKzJentzQdud81Rm8PjoLP44NF5BmfRLGK"
+  ],
   "telemetryEndpoints": null,
   "protocolId": "statemind",
   "properties": {
@@ -12,12 +13,12 @@
     "tokenSymbol": "POP"
   },
   "relay_chain": "rococo-staging",
-  "para_id": 2010,
+  "para_id": 2011,
   "codeSubstitutes": {},
   "genesis": {
     "raw": {
       "top": {
-        "0x0d715f2646c8f85767b5d2764bb2782604a74d81251e398fd8a0a4d55023bb3f": "0xda070000",
+        "0x0d715f2646c8f85767b5d2764bb2782604a74d81251e398fd8a0a4d55023bb3f": "0xdb070000",
         "0x0d715f2646c8f85767b5d2764bb278264e7b9012096b41c4eb3aaf947f6ea429": "0x0000",
         "0x15464cac3378d46f113cd5b7a4d71c84476f594316a7dfe49c1f352d95abdaf1": "0x00000000",
         "0x15464cac3378d46f113cd5b7a4d71c844e7b9012096b41c4eb3aaf947f6ea429": "0x0000",
