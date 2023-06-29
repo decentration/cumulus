@@ -3,6 +3,7 @@
   "id": "statemine_dev",
   "chainType": "Live",
   "bootNodes": [
+    "/dns/statemind.jelliedowl.com/tcp/41333/p2p/12D3KooWDT2ShRjupe4zAEYa7piVuY29banaae4BZd4Qmn7ij76V"
   ],
   "telemetryEndpoints": null,
   "protocolId": "statemind",
