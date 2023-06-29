@@ -72,8 +72,8 @@ parachains-common = { path = "../../../common", default-features = false }
 pallet-xcm-benchmarks = { git = "https://github.com/paritytech/polkadot", default-features = false, optional = true, branch = "release-v0.9.37" }
 
 # Pallet Supersig
-pallet-supersig = { git = "https://github.com/decentration/pallet_supersig", default-features = false, branch = "polkadot-v0.9.37-fix-unbounded" }
-pallet-supersig-rpc-runtime-api = { git = "https://github.com/decentration/pallet_supersig", default-features = false, branch = "polkadot-v0.9.37-fix-unbounded" }
+pallet-supersig = { git = "https://github.com/decentration/pallet_supersig", default-features = false, branch = "polkadot-v0.9.37" }
+pallet-supersig-rpc-runtime-api = { git = "https://github.com/decentration/pallet_supersig", default-features = false, branch = "polkadot-v0.9.37" }
 
 [dev-dependencies]
 asset-test-utils = { path = "../test-utils"}

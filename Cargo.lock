@@ -6891,8 +6891,8 @@ dependencies = [
 
 [[package]]
 name = "pallet-supersig"
-version = "1.1.1"
-source = "git+https://github.com/decentration/pallet_supersig.git?branch=polkadot-v0.9.37-fix-unbounded#40dcd312281e3a1355f8b06d7f65ed60854968dc"
+version = "1.1.2"
+source = "git+https://github.com/decentration/pallet_supersig.git?branch=polkadot-v0.9.37#61820df721ffd9ae233552d97af23e4b00d0d140"
 dependencies = [
  "frame-benchmarking",
  "frame-support",
@@ -6907,8 +6907,8 @@ dependencies = [
 
 [[package]]
 name = "pallet-supersig-rpc"
-version = "0.1.1"
-source = "git+https://github.com/decentration/pallet_supersig.git?branch=polkadot-v0.9.37-fix-unbounded#40dcd312281e3a1355f8b06d7f65ed60854968dc"
+version = "0.1.2"
+source = "git+https://github.com/decentration/pallet_supersig.git?branch=polkadot-v0.9.37#61820df721ffd9ae233552d97af23e4b00d0d140"
 dependencies = [
  "jsonrpsee",
  "pallet-supersig",
@@ -6922,8 +6922,8 @@ dependencies = [
 
 [[package]]
 name = "pallet-supersig-rpc-runtime-api"
-version = "0.1.0"
-source = "git+https://github.com/decentration/pallet_supersig.git?branch=polkadot-v0.9.37-fix-unbounded#40dcd312281e3a1355f8b06d7f65ed60854968dc"
+version = "0.1.2"
+source = "git+https://github.com/decentration/pallet_supersig.git?branch=polkadot-v0.9.37#61820df721ffd9ae233552d97af23e4b00d0d140"
 dependencies = [
  "pallet-supersig",
  "parity-scale-codec",
