@@ -12421,6 +12421,7 @@ dependencies = [
  "pallet-proxy",
  "pallet-session",
  "pallet-state-trie-migration",
+ "pallet-sudo",
  "pallet-supersig",
  "pallet-supersig-rpc-runtime-api",
  "pallet-timestamp",

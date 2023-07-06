@@ -231,6 +231,11 @@ parameter_types! {
 	pub const ExecutiveBody: BodyId = BodyId::Executive;
 }
 
+impl pallet_sudo::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type RuntimeCall = RuntimeCall;
+}
+
 /// We allow root and the Relay Chain council to execute privileged asset operations.
 pub type AssetsForceOrigin =
 	EitherOfDiverse<EnsureRoot<AccountId>, EnsureXcm<IsMajorityOfBody<KsmLocation, ExecutiveBody>>>;
@@ -658,6 +663,7 @@ construct_runtime!(
 		Assets: pallet_assets::{Pallet, Call, Storage, Event<T>} = 50,
 		Uniques: pallet_uniques::{Pallet, Call, Storage, Event<T>} = 51,
 		Supersig: pallet_supersig::{Pallet, Call, Storage, Event<T>} = 52,
+		Sudo: pallet_sudo::{Pallet, Call, Storage, Event<T>, Config<T>} = 53,
 
 		#[cfg(feature = "state-trie-version-1")]
 		StateTrieMigration: pallet_state_trie_migration = 70,

@@ -431,6 +431,7 @@ fn statemine_genesis(
 		polkadot_xcm: statemine_runtime::PolkadotXcmConfig {
 			safe_xcm_version: Some(SAFE_XCM_VERSION),
 		},
+		sudo: Default::default(),
 	}
 }
 

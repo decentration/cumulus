@@ -6,20 +6,20 @@
 ## Create Specs for Pop-Art
 
 0 - build spec
-./target/release/polkadot-parachain build-spec --chain statemine-dev > ./specs/statemind-2011-plain.json
+./target/release/polkadot-parachain build-spec --chain statemine-dev > ./specs/statemind-2013-plain.json
 
 1 - build raw spec
 ./target/release/$CHAIN_NAME build-spec --chain ./specs/$SPEC_NAME --raw > ./specs/$RAWSPEC_NAME
-./target/release/polkadot-parachain build-spec --chain ./specs/statemind-2011-plain.json --raw > ./specs/statemind-2011-raw.json
+./target/release/polkadot-parachain build-spec --chain ./specs/statemind-2013-plain.json --raw > ./specs/statemind-2013-raw.json
 
 
 2 - build genesis 
 ./target/release/$CHAIN_NAME export-genesis-state  --chain ../specs/$RAWSPEC_NAME > ./specs/genesis/$GENESIS_HEAD
-./target/release/polkadot-parachain export-genesis-state  --chain ./specs/statemind-2011-raw.json > ./specs/genesis/2011-genesis.json
+./target/release/polkadot-parachain export-genesis-state  --chain ./specs/statemind-2013-raw.json > ./specs/genesis/2013-genesis.json
 
 3 - build wasm 
 ./target/release/$CHAIN_NAME export-genesis-wasm  --chain ../specs/$RAWSPEC_NAME > ./specs/genesis/$GENESIS_WASM
-./target/release/polkadot-parachain export-genesis-wasm  --chain ./specs/statemind-2011-raw.json > ./specs/genesis/2011-wasm.json
+./target/release/polkadot-parachain export-genesis-wasm  --chain ./specs/statemind-2013-raw.json > ./specs/genesis/2013-wasm.json
 
 
 # Cumulus ☁️

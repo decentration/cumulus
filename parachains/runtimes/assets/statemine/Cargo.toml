@@ -45,6 +45,7 @@ sp-std = { git = "https://github.com/paritytech/substrate", default-features = f
 sp-transaction-pool = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 sp-version = { git = "https://github.com/paritytech/substrate", default-features = false, branch = "polkadot-v0.9.37" }
 pallet-state-trie-migration = { git = "https://github.com/paritytech/substrate", default-features = false, optional = true, branch = "polkadot-v0.9.37" }
+pallet-sudo = { version = "4.0.0-dev", default-features = false, git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.37" }
 
 # Polkadot
 kusama-runtime-constants = { git = "https://github.com/paritytech/polkadot", default-features = false, branch = "release-v0.9.37" }
@@ -145,6 +146,9 @@ try-runtime = [
 	"parachain-info/try-runtime",
 	"pallet-state-trie-migration/try-runtime",
 	"pallet-supersig/try-runtime",
+	"pallet-sudo/try-runtime",
+
+	
 
 ]
 std = [
@@ -201,5 +205,7 @@ std = [
 	"parachains-common/std",
 	"pallet-supersig/std",
 	"pallet-supersig-rpc-runtime-api/std",
+	"pallet-sudo/std",
+
 	
 ]
